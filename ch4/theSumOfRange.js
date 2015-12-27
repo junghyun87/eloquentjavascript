@@ -3,24 +3,26 @@
  */
 function range(start, end, step){
     if (step === undefined){
-        step = 1;
+        if (end >= start){
+            step = 1;
+        } else {
+            step = -1;
+        }
+
     }
 
     var newArray = [];
-    var numOfIter = end - start;
-    if (numOfIter < 0){
-        numOfIter = 0 - numOfIter;
+    if (step < 0){
+        for(var i = start; i >= end; i+=step){
+            newArray.push(i);
+        }
+    } else if (step > 0){
+        for(var i = start; i <= end; i+=step){
+            newArray.push(i);
+        }
     }
-
-    var cnt = 0;
-    var value = start;
-    while(cnt <= numOfIter){
-        newArray.push(value);
-        value += step;
-        cnt++;
-    }
-
     return newArray;
+
 }
 
 function sum(numbers){
@@ -34,3 +36,4 @@ function sum(numbers){
 console.log(sum(range(1,10)));
 console.log(range(1,10,2));
 console.log(range(5,2,-1));
+console.log(range(5,2));
