@@ -105,14 +105,18 @@ function dataTable(data) {
     });
     var body = data.map(function(row) {
         return keys.map(function(name) {
-            return new TextCell(String(row[name]));
+            var value = row[name];
+            // This was changed:
+            if (typeof value == "number")
+                return new RTextCell(String(value));
+            else
+                return new TextCell(String(value));
         });
     });
-
     return [headers].concat(body);
 }
-var MOUNTAINS=require('./mountains.js')
-console.log(drawTable(dataTable(MOUNTAINS)));
+
+var MOUNTAINS=require('./mountains.js');
 
 var pile = {
     elements: ["eggshell", "orange peel", "worm"],
@@ -143,7 +147,6 @@ console.log(cell.heightProp);
 function RTextCell(text) {
     TextCell.call(this, text);
 }
-
 RTextCell.prototype = Object.create(TextCell.prototype);
 RTextCell.prototype.draw = function(width, height) {
     var result = [];
@@ -154,3 +157,4 @@ RTextCell.prototype.draw = function(width, height) {
     return result;
 };
 
+console.log(drawTable(dataTable(MOUNTAINS)));
