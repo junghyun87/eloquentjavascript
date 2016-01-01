@@ -59,3 +59,6 @@ function parseINI(string) {
 }
 
 console.log('abcekabc'.match(/abc(ek)?/));
+
+//RegEX visualization
+//https://www.debuggex.com
