@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .trail { /* className for the trail elements */
+        position: absolute;
+        height: 6px; width: 6px;
+        border-radius: 3px;
+        background: teal;
+    }
+    body {
+        height: 300px;
+    }
+</style>
+
+<script>
+    // Your code here.
+    addEventListener("mousemove",function(event){
+        var dot = document.createElement("div");
+        dot.className = "trail";
+        dot.style.left = (event.pageX-3) + "px";
+        dot.style.top = (event.pageY-3) + "px";
+        document.body.appendChild(dot);
+        var deleteds = document.body.getElementsByTagName("div")
+        if (deleteds.length > 30){
+            document.body.removeChild(deleteds[0]);
+
+        }
+    })
+</script>
+</body>
+</html>

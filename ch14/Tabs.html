@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="wrapper">
+    <div data-tabname="one">Tab one</div>
+    <div data-tabname="two">Tab two</div>
+    <div data-tabname="three">Tab three</div>
+</div>
+<script>
+    function asTabs(node) {
+        // Your code here.
+        var cnodes = node.getElementsByTagName("div");
+        var numOfChildren = cnodes.length;
+        var bNodes =[];
+        for (var i=0;i<numOfChildren;i++){
+            cnodes[i].style.display = "none";
+            var button = document.createElement("button");
+            button.textContent = cnodes[i].getAttribute("data-tabname");
+            node.insertBefore(button,cnodes[0]);
+            bNodes.push(button);
+        }
+        bNodes.forEach(function(bn,i){
+            bn.addEventListener("click",function(event){
+                for(var j=0;j<cnodes.length;j++){
+                    if (i == j){
+                        cnodes[j].style.display = "block";
+                    } else{
+                        cnodes[j].style.display = "none";
+                    }
+                }
+            });
+        })
+
+
+    }
+    asTabs(document.querySelector("#wrapper"));
+</script>
+</body>
+</html>

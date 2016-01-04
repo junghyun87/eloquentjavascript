@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Focus this page and type something.</p>
+<script>
+    addEventListener("keydown",function(event){
+        console.log("keydown");
+    });
+    addEventListener("keypress", function(event) {
+        console.log(String.fromCharCode(event.keyCode));
+    });
+    addEventListener("keyup",function(event){
+        console.log("keyup");
+    });
+</script>
+</body>
+</html>

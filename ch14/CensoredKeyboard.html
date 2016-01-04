@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text">
+<script>
+    var field = document.querySelector("input");
+    // Your code here.
+    var fobade = "QWX";
+    var fobadeArray = [];
+    for(var i=0;i<fobade.length;i++){
+        fobadeArray.push(fobade.charCodeAt(i));
+    }
+    field.addEventListener("keypress",function(event){
+        //Q, W, X
+        if (fobadeArray.indexOf(event.keyCode) != -1){
+            event.preventDefault();
+        }
+//        //use hint. simpler!
+//        if (/[QWX]/i.test(String.fromCharCode(event.charCode))){
+//            event.preventDefault();
+//        }
+    });
+</script>
+</body>
+</html>
