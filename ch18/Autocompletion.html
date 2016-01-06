@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="field">
+<div id="suggestions" style="cursor: pointer"></div>
+
+<script>
+    // Builds up an array with global variable names, like
+    // 'alert', 'document', and 'scrollTo'
+    var terms = [];
+    for (var name in window)
+        terms.push(name);
+
+    // Your code here.
+    var textElement = document.querySelector("#field");
+    var suggestionEle = document.querySelector("#suggestions");
+    textElement.addEventListener("input",function(event){
+        var text = textElement.value;
+        var filtered;
+        if (text == ""){
+            filtered = [];
+        } else{
+            filtered = terms.filter(function(n){
+                return n.startsWith(text);
+            });
+            console.log("filtered:", filtered);
+        }
+
+        var suggetions = suggestionEle.childNodes;
+        console.log("suggetions:", suggetions);
+        suggestionEle.textContent = "";
+        for (var i=0;i<filtered.length;i++){
+            var entry = document.createElement('p');
+            entry.textContent = filtered[i];
+            entry.addEventListener("click",function(event){
+                var val = event.target.textContent;
+                textElement.value = val;
+            });
+            console.log("added:", entry);
+            suggestionEle.appendChild(entry);
+        }
+    });
+</script>
+</body>
+</html>

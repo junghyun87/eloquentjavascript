@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="grid"></div>
+    <button id="next">Next generation</button>
+
+    <script>
+        // Your code here.
+        var grid = document.querySelector("#grid");
+        var button = document.querySelector("#next");
+        var count = 12;
+        var data = [];
+        for (var i=0;i<count;i++){
+            var aRow = [];
+            for (var j=0;j<count;j++){
+                if (Math.random() > 0.5){
+                    aRow.push(true);
+                }else{
+                    aRow.push(false);
+                }
+            }
+            data.push(aRow);
+        }
+
+        function generation(data){
+            for (var i=0;i<count;i++){
+                var rowElement = document.createElement("p");
+                for(var j=0;j<count;j++){
+                    var checkBoxEle = document.createElement("input");
+                    checkBoxEle.setAttribute("type","checkbox");
+                    checkBoxEle.setAttribute("id",String(i*count+j));
+                    checkBoxEle.checked = data[i][j];
+                    checkBoxEle.addEventListener("change",function(event){
+                        var changedEle = Number(event.target.id);
+                        var x = Math.floor(changedEle/count);
+                        var y = changedEle%count;
+                        if (event.target.checked)
+                            data[x][y] = true;
+                        else
+                            data[x][y] = false;
+                    })
+                    rowElement.appendChild(checkBoxEle);
+
+                }
+                grid.appendChild(rowElement);
+            }
+        }
+
+        generation(data);
+
+        button.addEventListener("click",function(event){
+            var newData = [];
+            for(var i=0;i<count;i++){
+                for (var j=0;j<count;j++){
+                    var cell = data[i][j];
+
+                }
+            }
+            data = newData;
+
+        });
+
+
+    </script>
+</body>
+</html>
