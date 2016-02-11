@@ -243,7 +243,40 @@ methods.PUT = function(path, respond, request) {
 
 ### Error handling
 * exception이 발생하면 call stack의 top까지 exception이 전파된다(try-catch가 없을경우). Node에서는 프로그램이 종료되고 exception에 대한 정보가 standard error stream에 기록된다.
-* 
-``` javascript
 
+```javascript
+var Promise = require("promise");
+var fs = require("fs");
+
+var readFile = Promise.denodeify(fs.readFile);
+readFile("file.txt", "utf8").then(function(content) {
+  console.log("The file contained: " + content);
+}, function(error) {
+  console.log("Failed to read file: " + error);
+});
+
+methods.GET = function(path) {
+  return inspectPath(path).then(function(stats) {
+    if (!stats) // Does not exist
+      return {code: 404, body: "File not found"};
+    else if (stats.isDirectory())
+      return fsp.readdir(path).then(function(files) {
+        return {code: 200, body: files.join("\n")};
+      });
+    else
+      return {code: 200,
+              type: require("mime").lookup(path),
+              body: fs.createReadStream(path)};
+  });
+};
+
+function inspectPath(path) {
+  return fsp.stat(path).then(null, function(error) {
+    if (error.code == "ENOENT") return null;
+    else throw error;
+  });
+}
 ```
+
+* Promise.denodeify는 asynchronous function을 인자로 받고, 그 함수를 promise-returning function으로 바꿔준다.
+* inspectPath에서 파일이 존재하지 않는 경우는 exception으로 propergate하지 않게하기 위해 null을 return. null을 return하면 이전 promise object를 유지하는듯.
