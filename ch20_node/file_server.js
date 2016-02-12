@@ -24,6 +24,7 @@ http.createServer(function(request, response) {
 
 function urlToPath(url) {
     var path = require("url").parse(url).pathname;
+    console.log(path);
     return "." + decodeURIComponent(path);
 }
 
@@ -78,3 +79,14 @@ methods.PUT = function(path, respond, request) {
     });
     request.pipe(outStream);
 };
+
+methods.MKCOL = function(path, respond){
+    fs.mkdir(path, function(error){
+        if(error){
+            respond(400, error.toString());
+        }else{
+            respond(204);
+        }
+
+    })
+}

@@ -94,13 +94,15 @@ request.end();
 ```
 
 * request object에 write를 end전에 써서 data를 쓸 수 있지만 Get method의 경우 write를 사용하지 않음.
+
 ### Streams
 #### Write stream
-* response, request object는 writable streams의 예이다.
+* server의 response, client의 request object는 writable streams의 예이다.
 * 모든 writable streams는 write method를 가진다.
 * write method는 string이나 Buffer object를 받음.
 * end method는 stream을 닫기 전에 쓸 데이터를 인자로 가질 수 있고 닫고 나서 호출할 함수를 인자로 가질 수 있음.
 * fs.createWriteStream는 특정 파일에 write하는 method로 fs.writeFile와는 달리 한번에 한 조각씩 파일에 쓴다.(stream으로 쓰기 때문)
+
 #### Read stream
 * server의 request와 client의 response는 readable streams의 예이다.
 * stream으로부터 read할 때는 methods 말고 event handlers를 사용한다.
