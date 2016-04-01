@@ -19,6 +19,31 @@ req.addEventListener("load", function() {
 req.send(null);
 ```
 
+* load 이벤트 말고도, progress, error, abort 이벤트가 있다. https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+* 아래 onreadystatechange에 대한 내용 출처: http://www.w3schools.com/ajax/ajax_xmlhttprequest_onreadystatechange.asp
+* load 이벤트 대신 onreadystatechange 이벤트를 사용할 수 있다. onreadystatechange를 지원하는 브라우저 버전들이 더 많음.
+* onreadystatechange 이벤트는 XMLHttpRequest 객체의 readyState property가 변경될 때마다 발생한다
+* readyState는 XMLHttpRequest의 상태값을 가지고 있으며 값과 그 의미는 다음과 같다.
+  * 0: request not initialized 
+  * 1: server connection established
+  * 2: request received 
+  * 3: processing request 
+  * 4: request finished and response is ready
+* XMLHttpRequest는 또한 status property를 가지고 있고 그 값이 200이면 "OK", 404이면 Page not found이다.
+* When readyState is 4 and status is 200, the response is ready
+
+``` javascript
+// source from http://www.w3schools.com/ajax/ajax_xmlhttprequest_onreadystatechange.asp
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (xhttp.readyState == 4 && xhttp.status == 200) {
+    document.getElementById("demo").innerHTML = xhttp.responseText;
+  }
+};
+```
+
+
 ### Fetching XML Data
 * responseXML가 가리키는 object는 document object와 상응한다. 
 * responseXML.documentElement는 XML document의 맨 바깥 tag를 가리킨다.
