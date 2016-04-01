@@ -30,8 +30,11 @@ replaceChild
 ### Creating nodes
 ``` javascript
 var node = document.createElement(type);
+...
 if (typeof child == "string")
   child = document.createTextNode(child);
+...
+node.appendChild(child);
 
 var strong = document.createElement("strong");
 strong.appendChild(document.createTextNode(match[0]));
