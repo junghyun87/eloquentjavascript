@@ -58,6 +58,8 @@ var lang = pre.getAttribute("data-language");
 var languages = {
   javascript: /\b(function|return|var)\b/g /* … etc */
 };
+...
+var lang = pre.getAttribute("data-language");
 if (languages.hasOwnProperty(lang))
   highlightCode(pre, languages[lang]);
 ```
