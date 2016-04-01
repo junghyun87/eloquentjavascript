@@ -17,6 +17,7 @@ button.removeEventListener("click", once);
 if we want to know which mouse button was pressed, we can look at the event object’s which property.
 ```javascript
 button.addEventListener("mousedown", function(event) {
+    //which 1: left, 2: middle, 3: right button
     if (event.which == 1)
       console.log("Left button");
 }
@@ -27,8 +28,17 @@ At any point, an event handler can call the stopPropagation method on the event 
 
 
 ### Propagation
+* event는 propagation 된다.
+* p안에 button이 있고 p와 button 모두 같은 event handler가 있을 때, button을 누르면 가장 구체적인 event handler, 즉 button에 대한 event handler가 먼저 실행된다.
+* stopPropagation()으로 propagation을 멈출 수 있음
+
 ```javascript
-button.addEventListener("mousedown", function(event) {
+  var para = document.querySelector("p");
+  var button = document.querySelector("button");
+  para.addEventListener("mousedown", function() {
+    console.log("Handler for paragraph.");
+  });
+  button.addEventListener("mousedown", function(event) {
     console.log("Handler for button.");
     if (event.which == 3)
       event.stopPropagation();
